@@ -1,0 +1,21 @@
+import mongoose from "mongoose"
+import category from "../validations/category"
+
+const message = `Name must be between ${category.NAME_MIN_LENGHT} and ${category.NAME_MAX_LENGHT} characters log.`
+
+const { Schema } = mongoose
+
+const categorySchema = new Schema({
+    name: {
+        type: String,
+        require: true,
+        minlenght: [category.NAME_MIN_LENGHT, message],
+        maxlenght: [category.NAME_MAX_LENGHT, message]
+    },
+    parent: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Category'
+    }
+})
+
+export default mongoose.model('Category', categorySchema)
