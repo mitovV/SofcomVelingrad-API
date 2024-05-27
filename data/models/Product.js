@@ -75,3 +75,5 @@ const productSchema = new Schema({
         require: true
     }]
 })
+
+export default mongoose.model('Product', productSchema)
