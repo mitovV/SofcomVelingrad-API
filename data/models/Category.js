@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 import category from "../validations/category.js"
 
-const message = `Name must be between ${category.NAME_MIN_LENGHT} and ${category.NAME_MAX_LENGHT} characters log.`
-
 const { Schema } = mongoose
+
+const message = `Name must be between ${category.NAME_MIN_LENGHT} and ${category.NAME_MAX_LENGHT} characters log.`
 
 const categorySchema = new Schema({
     name: {
