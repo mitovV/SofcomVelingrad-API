@@ -1,6 +1,6 @@
 import express from 'express'
 import config from './config/config.js'
-import Category from './data/models/Category.js'
+import router from './routes.js'
 
 const app = express()
 
@@ -10,5 +10,7 @@ import configuration from './config/express.js'
 configuration(app)
 
 import './data/seeding/categoriesSeeder.js'
+
+app.use('/api', router)
 
 app.listen(config.PORT, console.log.bind(console, `Server is listening on port ${config.PORT}...`))
