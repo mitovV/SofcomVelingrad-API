@@ -23,7 +23,6 @@ const goldAndSilverCategories = [
     { name: 'Монети' },
     { name: 'Синджири' },
     { name: 'Халки' },
-    { name: 'Други' },
 ]
 
 const ringCategories = [
@@ -57,9 +56,20 @@ if (goldCategory.subcategories.length === 0 && silverCategory.subcategories.leng
         silverCategory.subcategories.push(category)
     }
 
-    console.log(goldCategory.subcategories)
     await goldCategory.save()
     await silverCategory.save()
 }
 
-let ringCategory = Category.findOne({ name: 'Пръстени' })
+let ringCategory = await Category.findOne({ name: 'Пръстени' })
+
+if (ringCategory.subcategories.length === 0){
+    for (let index = 0; index < ringCategories.length; index++) {
+        const data = ringCategories[index];
+
+        let category = await Category.findOne(data).lean()
+
+       ringCategory.subcategories.push(category)
+    }
+
+    await ringCategory.save()
+}
