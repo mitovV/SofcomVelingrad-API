@@ -9,6 +9,10 @@ const subCategoryShema = new Schema({
         require: true,
         minlenght: [NAME_MIN_LENGHT, MESSAGE],
         maxlenght: [NAME_MAX_LENGHT, MESSAGE]
+    },
+    parentId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'MainCategory'
     }
 })
 
