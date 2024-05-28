@@ -88,8 +88,14 @@ const productSchema = new Schema({
         require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
     },
     imagePaths: [{
-        type: String,
-        require: true
+        type: [String],
+        require: true,
+        validate: {
+            validator: function (arr) {
+                return arr.length === 3
+            },
+            message: 'The images must be exactly 3'
+        }
     }]
 })
 
