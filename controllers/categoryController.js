@@ -1,9 +1,9 @@
 import { Router } from "express";
-import Category from "../data/models/Category.js";
+import MainCategory from "../data/models/MainCategory.js";
 const router = Router()
 
 router.get('/', (req, res) => {
-    Category.find({}).then(response => {
+    MainCategory.find({}).then(response => {
         res.status(200).json(response)
     })
 })

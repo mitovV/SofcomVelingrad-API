@@ -8,16 +8,11 @@ const ringCategorySchema = new Schema({
         enum: ['Дамски', 'Детски', 'Мъжки'],
         require: true
     },
-    firsParentId: {
+    parentId: {
         type: mongoose.Types.ObjectId,
         ref: 'SubCategory',
         require: true
     },
-    secondParentId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Subcategory',
-        require: true
-    }
 })
 
 export default mongoose.model('RingCategory', ringCategorySchema)
