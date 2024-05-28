@@ -5,14 +5,19 @@ const GOLD_CATEGORY_NAME = 'Злато'
 const SILVER_CATEGORY_NEM = 'Сребро'
 const BRACELETS_CATEGORY_NAME = 'Гривни'
 const CHAINS_CATEGORY_NAME = 'Синджири'
+const RING_CATEGORY_NAME = 'Пръстени'
+const GSM_CATEGORY_NAME = 'GSM'
+const WATCHES_CATEGORY_NAME = 'Часовници'
+const WEDDING_RING_CATEGORY_NAME = 'Халки'
 const GOLD_AND_SILVER_CATEGORIES = [GOLD_CATEGORY_NAME, SILVER_CATEGORY_NEM]
-const GOLD_AND_SILER_SUB_CATEGORIES = ['Пръстени', 'Обеци', 'Висулки', 'Колиета', BRACELETS_CATEGORY_NAME, 'Монети', CHAINS_CATEGORY_NAME, 'Халки']
-const OTHER_CATEGORIES = ['Техника', 'GSM', 'Часовници', 'Аудио и видео', 'Компютри и перифе', 'Автомобили и аксесоари', 'Други']
+const GOLD_AND_SILER_SUB_CATEGORIES = [RING_CATEGORY_NAME, 'Обеци', 'Висулки', 'Колиета', BRACELETS_CATEGORY_NAME, 'Монети', CHAINS_CATEGORY_NAME, WEDDING_RING_CATEGORY_NAME]
+const OTHER_CATEGORIES = ['Техника', GSM_CATEGORY_NAME, WATCHES_CATEGORY_NAME, 'Аудио и видео', 'Компютри и перифе', 'Автомобили и аксесоари', 'Други']
 
 const productSchema = new Schema({
     categoryId: {
         type: mongoose.Types.ObjectId,
-        ref: 'Category'
+        ref: 'Category',
+        require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
     },
     categoryName: {
         type: String,
@@ -20,16 +25,16 @@ const productSchema = new Schema({
     },
     material: {
         type: String,
-        enum: GOLD_AND_SILVER_CATEGORIES,
-        require: function () { return GOLD_AND_SILER_SUB_CATEGORIES.includes(this.categoryName) }
+        require: function () { return GOLD_AND_SILVER_CATEGORIES.includes(this.categoryName) }
     },
     weight: {
         type: Number,
-        require: function () { return GOLD_AND_SILVER_CATEGORIES.includes(this.categoryName) }
+        require: function () { return GOLD_AND_SILER_SUB_CATEGORIES.includes(this.categoryName) }
     },
     size: {
         type: Number,
-        require: function () { return ['Пръстени'].includes(this.categoryName) }
+        //TODO: ADD ENUM FOR SIZE
+        require: function () { return [RING_CATEGORY_NAME, WEDDING_RING_CATEGORY_NAME].includes(this.categoryName) }
     },
     goldCarat: {
         type: String,
@@ -62,13 +67,25 @@ const productSchema = new Schema({
     },
     description: {
         type: String,
-        minlenght: [10, 'Desctiption should be more than 10 characters long'],
+        minlenght: [10, 'Desctiption must be at least 10 characters long'],
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
     },
     title: {
         type: String,
-        minlenght: [5, 'Title should be more than 5 characters long'],
+        minlenght: [5, 'Title must be at least 5 characters long'],
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
+    },
+    brand:{
+        type: String,
+        minlenght: [3, 'Brand must be at least 3 characters long'],
+        maxlenght: [10, 'Brand must not be more than 10 characters long'],
+        require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
+    },
+    model: {
+        type: String,
+        minlenght: [3, 'Model must be at least 3 characters long'],
+        maxlenght: [10, 'Model must not be more than 10 characters long'],
+        require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
     },
     imagePaths: [{
         type: String,
