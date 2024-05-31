@@ -1,8 +1,8 @@
 import { Router } from "express"
-import mainCategoryController from './controllers/mainCategoryController.js'
+import categoryController from './controllers/categoryController.js'
 
 const router = Router()
 
-router.use('/categories/main', mainCategoryController)
+router.use('/categories/', categoryController)
 
 export default router

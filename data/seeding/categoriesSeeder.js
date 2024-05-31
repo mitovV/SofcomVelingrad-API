@@ -36,11 +36,12 @@ const ringCategories = [
 let data = await MainCategory.find({})
 
 if (data.length === 0) {
-    mainCategories.forEach(async (categoryData) => {
-        let mainCategory = new MainCategory({ name: categoryData.name })
+    for (let index = 0; index < mainCategories.length; index++) {
+        const element = mainCategories[index];
+        let mainCategory = new MainCategory(element)
 
         await mainCategory.save()
-    })
+    }
 }
 
 let goldCategory = await MainCategory.findOne({ name: 'Злато' })
@@ -52,7 +53,12 @@ if (subCategories.length === 0) {
         let name = goldAndSilverCategories[index].name
         let subCategory = new SubCategory({name: name, firstParentId: goldCategory._id, secondParentId: silverCategory._id})
         await subCategory.save()
+        goldCategory.subCategories.push(subCategory)
+        silverCategory.subCategories.push(subCategory)
     }
+
+   await goldCategory.save()
+   await silverCategory.save()
 }
 
 let ringCategoriesData = await RingCategory.find({})
@@ -65,5 +71,8 @@ if (ringCategoriesData.length === 0){
         let ringCategory = new RingCategory({name: data.name, parentId: ringSubCategory._id })
 
         await ringCategory.save()
+        ringSubCategory.subCategories.push(ringCategory)
     }
+
+   await ringSubCategory.save()
 }

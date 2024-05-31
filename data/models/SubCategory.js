@@ -10,7 +10,7 @@ const subCategoryShema = new Schema({
         minlenght: [category.NAME_MIN_LENGHT, category.MESSAGE],
         maxlenght: [category.NAME_MAX_LENGHT, category.MESSAGE]
     },
-    firstParentId: {
+    parentId: {
         type: mongoose.Types.ObjectId,
         ref: 'MainCategory',
         require:true
@@ -19,7 +19,13 @@ const subCategoryShema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'MainCategory',
         require: true
-    }
+    },
+    subCategories: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'RingCategory'
+        }
+    ]
 })
 
 export default mongoose.model('SubCategory', subCategoryShema)

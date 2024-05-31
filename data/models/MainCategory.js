@@ -9,7 +9,15 @@ const mainCategorySchema = new Schema({
         require: true,
         minlenght: [category.NAME_MIN_LENGHT, category.MESSAGE],
         maxlenght: [category.NAME_MAX_LENGHT, category.MESSAGE]
-    }
+    },
+    subCategories: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'SubCategory'
+      }
+    ]
+
+    
   })
 
 export default mongoose.model('MainCategory', mainCategorySchema)
