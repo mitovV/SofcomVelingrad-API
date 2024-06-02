@@ -32,7 +32,8 @@ const productSchema = new Schema({
         require: function () { return GOLD_AND_SILER_SUB_CATEGORIES.includes(this.categoryName) }
     },
     size: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "RingSize",
         enum: {
             values: ['41-13.0(mm)', '42-13.4(mm)', '43-13.7(mm)', '44-14.0(mm)', '45-14.3(mm)', '46-14.6(mm)', '47-15.0(mm)', '48-15.3(mm)', '49-15.6(mm)', '50-15.9(mm)', '51-16.2(mm)', '52-16.5(mm)', '53-16.8(mm)', '54-17.2(mm)', '55-17.5(mm)', '56-17.8(mm)', '57-18.1(mm)', '58-18.4(mm)', '59-18.8(mm)', '60-19.1(mm)', '61-19.4(mm)', '62-19.7(mm)', '63-20.0(mm)', '64-20.3(mm)', '65-20.6(mm)', '66-21.0(mm)', '67-21.3(mm)', '68-21.6(mm)', '69-22.0(mm)', '70-22.3(mm)', '71-22.6(mm)', '72-22.9(mm)', '73-23.2(mm)', '74-23.5(mm)', '75-23.9(mm)', '76-24.2(mm)'],
             message: 'Invalid size for ring'
