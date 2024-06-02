@@ -1,5 +1,5 @@
-import { Router, response } from "express"
-import ringSizesService from '../services/ringSizesService'
+import { Router } from "express"
+import ringSizesService from '../services/ringSizesService.js'
 
 const router = Router()
 
@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
         .then(response => {
             res.status(200).json(response)
         })
+        .catch(err => res.status(400).json({ err }))
 })
 
 router.post('/', (req, res) => {
@@ -15,7 +16,7 @@ router.post('/', (req, res) => {
 
     ringSizesService.create(value)
         .then(ringSize => {
-            res.status(200).json({_id: ringSize._id})
+            res.status(200).json({ _id: ringSize._id })
         })
         .catch(err => res.status(400).json({ err }))
 })
