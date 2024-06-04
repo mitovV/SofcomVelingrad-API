@@ -7,8 +7,14 @@ const create = async (size) => {
     return await ringSize.save()
 }
 
-const all = async () => {
-    return await RingSize.find({}).lean()
+const all = async (offset, limit) => {
+
+    return await RingSize.find({}).sort({size : 'asc'}).skip(offset).limit(limit).lean()
+}
+
+const count = async () => {
+   return await RingSize.countDocuments()
+
 }
 
 const getBySize = async (size) => {
@@ -17,5 +23,7 @@ const getBySize = async (size) => {
 
 export default {
     create,
-    all
+    all,
+    getBySize,
+    count
 }
