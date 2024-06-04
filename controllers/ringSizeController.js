@@ -12,13 +12,16 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    let { value } = req.params
-
-    ringSizesService.create(value)
+    let { size } = req.body
+   
+    ringSizesService.create(size)
         .then(ringSize => {
-            res.status(200).json({ _id: ringSize._id })
+            res.status(201).json({ _id: ringSize._id })
         })
-        .catch(err => res.status(400).json({ err }))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({ err })
+        })
 })
 
 export default router

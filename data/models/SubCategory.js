@@ -7,8 +7,8 @@ const subCategoryShema = new Schema({
     name: {
         type: String,
         require: true,
-        minlenght: [category.NAME_MIN_LENGHT, category.MESSAGE],
-        maxlenght: [category.NAME_MAX_LENGHT, category.MESSAGE]
+        minLength: [category.NAME_MIN_LENGHT, category.MESSAGE],
+        maxLenght: [category.NAME_MAX_LENGHT, category.MESSAGE]
     },
     parentId: {
         type: mongoose.Types.ObjectId,

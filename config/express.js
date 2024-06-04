@@ -1,4 +1,5 @@
 import cors from 'cors'
+import { json } from 'express'
 
 let options = {
     origin: 'http://localhost:3000',
@@ -7,4 +8,5 @@ let options = {
 
 export default (app) => {
     app.use(cors(options))
+    app.use(json())
 }
