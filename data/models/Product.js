@@ -67,24 +67,24 @@ const productSchema = new Schema({
     },
     description: {
         type: String,
-        minlenght: [10, 'Desctiption must be at least 10 characters long'],
+        minLength: [10, 'Desctiption must be at least 10 characters long'],
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
     },
     title: {
         type: String,
-        minlenght: [5, 'Title must be at least 5 characters long'],
+        minLength: [5, 'Title must be at least 5 characters long'],
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
     },
     brand: {
         type: String,
-        minlenght: [3, 'Brand must be at least 3 characters long'],
-        maxlenght: [10, 'Brand must not be more than 10 characters long'],
+        minLength: [3, 'Brand must be at least 3 characters long'],
+        maxLength: [10, 'Brand must not be more than 10 characters long'],
         require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
     },
     model: {
         type: String,
-        minlenght: [3, 'Model must be at least 3 characters long'],
-        maxlenght: [10, 'Model must not be more than 10 characters long'],
+        minLength: [3, 'Model must be at least 3 characters long'],
+        maxLength: [10, 'Model must not be more than 10 characters long'],
         require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
     },
     imagePaths: [{
