@@ -10,6 +10,7 @@ import configuration from './config/express.js'
 configuration(app)
 
 import './data/seeding/categoriesSeeder.js'
+import './data/seeding/ringSizesSeeder.js'
 
 app.use('/api', router)
 
