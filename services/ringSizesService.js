@@ -21,9 +21,14 @@ const getBySize = async (size) => {
     return await RingSize.findOne({ size })
 }
 
+const deleteById = async (_id) => {
+    return await RingSize.deleteOne({_id})
+}
+
 export default {
     create,
     all,
     getBySize,
-    count
+    count,
+    deleteById
 }
