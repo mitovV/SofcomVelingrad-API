@@ -31,9 +31,9 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    let { _id } = req.params
-
-    ringSizesService.deleteById(_id)
+    let id  = req.params.id
+    
+    ringSizesService.deleteById(id)
         .then(response => res.status(202)
             .json(response))
         .catch(err => res.status(400).json(err))

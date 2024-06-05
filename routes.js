@@ -5,6 +5,6 @@ import ringSizeController from './controllers/ringSizeController.js'
 const router = Router()
 
 router.use('/categories/', categoryController)
-router.use('/ring-size', ringSizeController)
+router.use('/ring-sizes', ringSizeController)
 
 export default router
