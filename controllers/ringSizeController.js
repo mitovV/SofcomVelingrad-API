@@ -1,4 +1,4 @@
-import { Router, response } from "express"
+import { Router } from "express"
 import ringSizesService from '../services/ringSizesService.js'
 
 const router = Router()
