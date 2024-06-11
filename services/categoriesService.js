@@ -14,6 +14,11 @@ const mainAll = () => {
 const subAll = () => {
     return SubCategory.find()
 }
+
+const ringAll = () => {
+    return RingCategory.find()
+}
+
 const getById = async (id) => {
     let mainCategory =  await MainCategory.findOne({_id: id}).lean()
 
@@ -35,5 +40,6 @@ const getById = async (id) => {
 export default {
     mainAll,
     getById,
-    subAll
+    subAll,
+    ringAll
 }

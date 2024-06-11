@@ -19,6 +19,14 @@ router.get('/sub/all', (req, res) => {
         }).catch(err => res.status(400).json({ err }))
 })
 
+router.get('/ring/all', (req, res) => {
+    categoriesService.ringAll()
+        .then(response => {
+            res.status(200)
+                .json(response)
+        }).catch(err => res.status(400).json({ err }))
+})
+
 router.get('/:id', (req, res) => {
     const id  = req.params.id
 
