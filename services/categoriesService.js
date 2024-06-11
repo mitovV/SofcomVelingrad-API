@@ -2,7 +2,7 @@ import MainCategory from "../data/models/MainCategory.js"
 import SubCategory from  "../data/models/SubCategory.js"
 import RingCategory from "../data/models/RingCategory.js"
 
-const all = () => {
+const mainAll = () => {
     return MainCategory.find().populate({
         path: 'subCategories',
         populate: {
@@ -11,6 +11,9 @@ const all = () => {
     })
 }
 
+const subAll = () => {
+    return SubCategory.find()
+}
 const getById = async (id) => {
     let mainCategory =  await MainCategory.findOne({_id: id}).lean()
 
@@ -30,6 +33,7 @@ const getById = async (id) => {
 }
 
 export default {
-    all,
-    getById
+    mainAll,
+    getById,
+    subAll
 }
