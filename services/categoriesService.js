@@ -37,9 +37,14 @@ const getById = async (id) => {
     }
 }
 
+const update = async (_id, name) => {
+    return await MainCategory.findOneAndUpdate({_id}, {name})
+}
+
 export default {
     mainAll,
     getById,
     subAll,
-    ringAll
+    ringAll,
+    update
 }

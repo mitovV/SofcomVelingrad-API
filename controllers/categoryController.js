@@ -35,4 +35,14 @@ router.get('/:id', (req, res) => {
     }).catch(err => res.status(400).json({ err }))
 })
 
+router.patch('/:id', (req, res) => {
+    let id = req.params.id
+    let { name } = req.body
+
+    categoriesService.update(id, name)
+        .then(response => res.status(200)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
 export default router
