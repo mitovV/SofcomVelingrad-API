@@ -47,8 +47,17 @@ router.patch('/:id', (req, res) => {
 
 router.delete('/ring/:id', (req, res) => {
     let id = req.params.id
-    
+
     categoriesService.deleteRingById(id)
+        .then(response => res.status(202)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
+router.delete('/main/:id', (req, res) => {
+    let id = req.params.id
+    
+    categoriesService.deleteMainById(id)
         .then(response => res.status(202)
             .json(response))
         .catch(err => res.status(400).json({ err }))

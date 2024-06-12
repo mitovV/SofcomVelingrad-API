@@ -45,11 +45,16 @@ const deleteRingById = async (_id) => {
     return await RingCategory.deleteOne({_id})
 }
 
+const deleteMainById = async (_id) => {
+    return await MainCategory.deleteOne({_id})
+}
+
 export default {
     mainAll,
     getById,
     subAll,
     ringAll,
     update,
-    deleteRingById
+    deleteRingById,
+    deleteMainById
 }
