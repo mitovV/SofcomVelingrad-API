@@ -45,6 +45,10 @@ const updateSub = async (_id, name) => {
     return await SubCategory.findOneAndUpdate({_id}, {name})
 }
 
+const updateRing = async (_id, name) => {
+    return await RingCategory.findOneAndUpdate({_id}, {name})
+}
+
 const deleteRingById = async (_id) => {
     return await RingCategory.deleteOne({_id})
 }
@@ -64,6 +68,7 @@ export default {
     ringAll,
     updateMain,
     updateSub,
+    updateRing,
     deleteRingById,
     deleteMainById,
     deleteSubById

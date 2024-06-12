@@ -55,6 +55,16 @@ router.patch('/sub/:id', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.patch('/ring/:id', (req, res) => {
+    let id = req.params.id
+    let { name } = req.body
+
+    categoriesService.updateRing(id, name)
+        .then(response => res.status(200)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
 router.delete('/ring/:id', (req, res) => {
     let id = req.params.id
 

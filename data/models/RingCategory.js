@@ -1,11 +1,10 @@
-import mongoose, { Types } from "mongoose"
+import mongoose from "mongoose"
 
 const { Schema } = mongoose
 
 const ringCategorySchema = new Schema({
     name: {
         type: String,
-        enum: ['Дамски', 'Детски', 'Мъжки'],
         require: true
     },
     parentId: {
