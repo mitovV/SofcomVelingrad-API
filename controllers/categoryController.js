@@ -11,6 +11,16 @@ router.get('/main/all', (req, res) => {
         }).catch(err => res.status(400).json({ err }))
 })
 
+router.post('/main', (req, res) => {
+    let { name } = req.body
+
+    categoriesService.createMain(name)
+    .then(category => {
+        res.status(201).json({ _id: category._id })
+    })
+    .catch(err => res.status(400).json({ err }))
+})
+
 router.get('/sub/all', (req, res) => {
     categoriesService.subAll()
         .then(response => {

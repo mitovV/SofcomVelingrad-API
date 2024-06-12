@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose"
+
 const { Schema } = mongoose
 
 const GOLD_CATEGORY_NAME = 'Злато'

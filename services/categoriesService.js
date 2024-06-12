@@ -11,6 +11,12 @@ const mainAll = () => {
     })
 }
 
+const createMain = async (name) => {
+    let category = new MainCategory({ name })
+
+    return await category.save()
+}
+
 const subAll = () => {
     return SubCategory.find()
 }
@@ -71,5 +77,6 @@ export default {
     updateRing,
     deleteRingById,
     deleteMainById,
-    deleteSubById
+    deleteSubById,
+    createMain,
 }
