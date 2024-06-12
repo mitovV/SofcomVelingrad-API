@@ -35,11 +35,21 @@ router.get('/:id', (req, res) => {
     }).catch(err => res.status(400).json({ err }))
 })
 
-router.patch('/:id', (req, res) => {
+router.patch('/main/:id', (req, res) => {
     let id = req.params.id
     let { name } = req.body
 
-    categoriesService.update(id, name)
+    categoriesService.updateMain(id, name)
+        .then(response => res.status(200)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
+router.patch('/sub/:id', (req, res) => {
+    let id = req.params.id
+    let { name } = req.body
+
+    categoriesService.updateSub(id, name)
         .then(response => res.status(200)
             .json(response))
         .catch(err => res.status(400).json({ err }))

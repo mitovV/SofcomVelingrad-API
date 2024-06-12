@@ -37,8 +37,12 @@ const getById = async (id) => {
     }
 }
 
-const update = async (_id, name) => {
+const updateMain = async (_id, name) => {
     return await MainCategory.findOneAndUpdate({_id}, {name})
+}
+
+const updateSub = async (_id, name) => {
+    return await SubCategory.findOneAndUpdate({_id}, {name})
 }
 
 const deleteRingById = async (_id) => {
@@ -58,7 +62,8 @@ export default {
     getById,
     subAll,
     ringAll,
-    update,
+    updateMain,
+    updateSub,
     deleteRingById,
     deleteMainById,
     deleteSubById
