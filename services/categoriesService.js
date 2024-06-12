@@ -49,6 +49,10 @@ const deleteMainById = async (_id) => {
     return await MainCategory.deleteOne({_id})
 }
 
+const deleteSubById = async (_id) => {
+    return await SubCategory.deleteOne({_id})
+}
+
 export default {
     mainAll,
     getById,
@@ -56,5 +60,6 @@ export default {
     ringAll,
     update,
     deleteRingById,
-    deleteMainById
+    deleteMainById,
+    deleteSubById
 }
