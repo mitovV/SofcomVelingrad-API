@@ -45,4 +45,13 @@ router.patch('/:id', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.delete('/ring/:id', (req, res) => {
+    let id = req.params.id
+    
+    categoriesService.deleteRingById(id)
+        .then(response => res.status(202)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
 export default router
