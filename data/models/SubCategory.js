@@ -18,7 +18,6 @@ const subCategoryShema = new Schema({
     secondParentId: {
         type: mongoose.Types.ObjectId,
         ref: 'MainCategory',
-        require: true
     },
     subCategories: [
         {
