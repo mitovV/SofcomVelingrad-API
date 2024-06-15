@@ -51,7 +51,7 @@ let subCategories = await SubCategory.find({})
 if (subCategories.length === 0) {
     for (let index = 0; index < goldAndSilverCategories.length; index++) {
         let name = goldAndSilverCategories[index].name
-        let subCategory = new SubCategory({name: name, firstParentId: goldCategory._id, secondParentId: silverCategory._id})
+        let subCategory = new SubCategory({name: name, parentId: goldCategory._id, secondParentId: silverCategory._id})
         await subCategory.save()
         goldCategory.subCategories.push(subCategory)
         silverCategory.subCategories.push(subCategory)

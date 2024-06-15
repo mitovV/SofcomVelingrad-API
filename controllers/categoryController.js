@@ -29,6 +29,17 @@ router.post('/main', (req, res) => {
     .catch(err => res.status(400).json({ err }))
 })
 
+router.get('/sub/parent/:id', (req, res) => {
+    let id = req.params.id
+
+    categoriesService.getSubByParentId(id)
+        .then(response => {
+        res.status(200)
+            .json(response)
+    })
+    .catch(err => res.status(400).json({ err }))
+})
+
 router.post('/sub', (req, res) => {
     let { categoryId, name } = req.body
 

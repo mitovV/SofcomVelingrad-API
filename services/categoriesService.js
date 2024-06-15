@@ -15,6 +15,15 @@ const mainAllWhichHaveSub = () => {
     return MainCategory.find({ subCategories: { $ne: [] } })
 }
 
+const getSubByParentId = (id) => {
+    return SubCategory.find({
+        $or: [
+            { parentId: id },
+            { secondParentId: id }
+        ]
+    })
+}
+
 const createMain = async (name) => {
     let category = new MainCategory({ name })
 
@@ -78,7 +87,25 @@ const deleteMainById = async (_id) => {
 }
 
 const deleteSubById = async (_id) => {
-    return await SubCategory.deleteOne({ _id })
+    let subCategory = await SubCategory.findById(_id)
+    let parentId = subCategory.parentId
+    let secondParentId = subCategory.secondParentId
+
+    let parent = await MainCategory.findById(parentId)
+    let secondParent = await MainCategory.findById(secondParentId)
+
+    if (parent) {
+        parent.subCategories.remove(subCategory._id)
+    }
+
+    if (secondParent) {
+        secondParent.subCategories.remove(subCategory._id)
+    }
+
+    await parent.save()
+    await secondParent.save()
+
+    return await SubCategory.findByIdAndDelete(_id)
 }
 
 export default {
@@ -94,5 +121,6 @@ export default {
     deleteSubById,
     createMain,
     createSub,
-    mainAllWhichHaveSub
+    mainAllWhichHaveSub,
+    getSubByParentId
 }
