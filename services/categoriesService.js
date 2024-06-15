@@ -11,6 +11,10 @@ const mainAll = () => {
     })
 }
 
+const mainAllWhichHaveSub = () => {
+    return MainCategory.find({ subCategories: { $ne: [] } })
+}
+
 const createMain = async (name) => {
     let category = new MainCategory({ name })
 
@@ -89,5 +93,6 @@ export default {
     deleteMainById,
     deleteSubById,
     createMain,
-    createSub
+    createSub,
+    mainAllWhichHaveSub
 }

@@ -11,6 +11,14 @@ router.get('/main/all', (req, res) => {
         }).catch(err => res.status(400).json({ err }))
 })
 
+router.get('/main/all/sub', (req, res) => {
+    categoriesService.mainAllWhichHaveSub()
+        .then(response => {
+            res.status(200)
+                .json(response)
+        }).catch(err => res.status(400).json({ err }))
+})
+
 router.post('/main', (req, res) => {
     let { name } = req.body
 
