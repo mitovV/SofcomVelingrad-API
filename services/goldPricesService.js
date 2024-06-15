@@ -1,9 +1,16 @@
 import GoldPrice from "../data/models/GoldPrice.js"
 
-const all = async () => {
-    return await GoldPrice.find()
+const all = () => {
+    return GoldPrice.find()
+}
+
+const create = async (condition, price) => {
+    let goldPrice = new GoldPrice({condition, price})
+
+    return await goldPrice.save()
 }
 
 export default {
-    all
+    all,
+    create
 }
