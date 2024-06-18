@@ -19,8 +19,10 @@ router.get('/count', (req, res) => {
 })
 
 router.get('/all', (req, res) => {
-    let { page, limit } = req.query
-    let offset = (page - 1) * limit
+    let page = Number(req.query.page) || 0
+    let limit = Number(req.query.limit) || 0
+
+    let offset = ((page - 1) * limit) || 0
 
     categoriesService.all(offset, limit)
         .then(response => {
@@ -33,14 +35,14 @@ router.post('/', (req, res) => {
     let { name, parentId, secondParendId } = req.body
 
     categoriesService.create(name, parentId, secondParendId)
-    .then(category => {
-        res.status(201).json({ _id: category._id })
-    })
-    .catch(err => res.status(400).json({ err }))
+        .then(category => {
+            res.status(201).json({ _id: category._id })
+        })
+        .catch(err => res.status(400).json({ err }))
 })
 
 router.get('/:id', (req, res) => {
-    const id  = req.params.id
+    const id = req.params.id
 
     categoriesService.getById(id).then(response => {
         res.status(200).json(response)

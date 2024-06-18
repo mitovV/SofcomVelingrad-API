@@ -1,7 +1,7 @@
 import Category from "../data/models/Category.js"
 
 const mainAll = () => {
-    return Category.find({parentId: null}).populate({
+    return Category.find({ parentId: null }).populate({
         path: 'subCategories',
         populate: {
             path: 'subCategories'
@@ -10,30 +10,29 @@ const mainAll = () => {
 }
 
 const all = (offset, limit) => {
-    return Category.find().sort({name : 'asc'}).skip(offset).limit(limit)
+    return Category.find().sort({ name: 'asc' }).skip(offset).limit(limit)
 }
 
 const count = async () => {
     return await Category.countDocuments()
- }
+}
 
 const create = async (name, parentId, secondParentId) => {
     let category = new Category({ name, parentId, secondParentId })
-    await category.save()
 
     if (parentId) {
-        let parent = Category.findById(parentId)
+        let parent = await Category.findById(parentId)
         parent.subCategories.push(category)
-        await category.save()
+        await parent.save()
 
         if (secondParentId) {
-            let secondParent = Category.findById(secondParentId)
+            let secondParent = await Category.findById(secondParentId)
             secondParent.subCategories.push(category)
             await secondParent.save()
         }
     }
 
-    return category
+    return await category.save()
 }
 
 
@@ -48,12 +47,12 @@ export const getById = async (_id) => {
 const deleteById = async (_id) => {
     let category = await Category.findById(_id)
 
-    if(category.parentId){
+    if (category.parentId) {
         let parent = Category.findById(category.parentId)
         parent.subCategories.remove(_id)
         await parent.save()
 
-        if(category.secondParentId){
+        if (category.secondParentId) {
             let secondParent = Category.findById(category.secondParentId)
             secondParent.subCategories.remove(_id)
             await secondParent.save()
@@ -66,7 +65,7 @@ const deleteById = async (_id) => {
 export default {
     mainAll,
     all,
-    create, 
+    create,
     update,
     getById,
     deleteById,
