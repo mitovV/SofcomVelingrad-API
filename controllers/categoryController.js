@@ -3,7 +3,7 @@ import categoriesService from "../services/categoriesService.js"
 
 const router = Router()
 
-router.get('/main/all', (req, res) => {
+router.get('/all/main', (req, res) => {
     categoriesService.mainAll()
         .then(response => {
             res.status(200)
@@ -11,59 +11,32 @@ router.get('/main/all', (req, res) => {
         }).catch(err => res.status(400).json({ err }))
 })
 
-router.get('/main/all/sub', (req, res) => {
-    categoriesService.mainAllWhichHaveSub()
+router.get('/count', (req, res) => {
+    return categoriesService.count().then(response => {
+        res.status(200).json(response)
+    })
+        .catch(err => res.status(400).json({ err }))
+})
+
+router.get('/all', (req, res) => {
+    let { page, limit } = req.query
+    let offset = (page - 1) * limit
+
+    categoriesService.all(offset, limit)
         .then(response => {
             res.status(200)
                 .json(response)
         }).catch(err => res.status(400).json({ err }))
 })
 
-router.post('/main', (req, res) => {
-    let { name } = req.body
+router.post('/', (req, res) => {
+    let { name, parentId, secondParendId } = req.body
 
-    categoriesService.createMain(name)
+    categoriesService.create(name, parentId, secondParendId)
     .then(category => {
         res.status(201).json({ _id: category._id })
     })
     .catch(err => res.status(400).json({ err }))
-})
-
-router.get('/sub/parent/:id', (req, res) => {
-    let id = req.params.id
-
-    categoriesService.getSubByParentId(id)
-        .then(response => {
-        res.status(200)
-            .json(response)
-    })
-    .catch(err => res.status(400).json({ err }))
-})
-
-router.post('/sub', (req, res) => {
-    let { categoryId, name } = req.body
-
-    categoriesService.createSub(categoryId, name)
-    .then(category => {
-        res.status(201).json({ _id: category._id })
-    })
-    .catch(err => res.status(400).json({ err }))
-})
-
-router.get('/sub/all', (req, res) => {
-    categoriesService.subAll()
-        .then(response => {
-            res.status(200)
-                .json(response)
-        }).catch(err => res.status(400).json({ err }))
-})
-
-router.get('/ring/all', (req, res) => {
-    categoriesService.ringAll()
-        .then(response => {
-            res.status(200)
-                .json(response)
-        }).catch(err => res.status(400).json({ err }))
 })
 
 router.get('/:id', (req, res) => {
@@ -74,59 +47,12 @@ router.get('/:id', (req, res) => {
     }).catch(err => res.status(400).json({ err }))
 })
 
-router.patch('/main/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     let id = req.params.id
     let { name } = req.body
 
-    categoriesService.updateMain(id, name)
+    categoriesService.update(id, name)
         .then(response => res.status(200)
-            .json(response))
-        .catch(err => res.status(400).json({ err }))
-})
-
-router.patch('/sub/:id', (req, res) => {
-    let id = req.params.id
-    let { name } = req.body
-
-    categoriesService.updateSub(id, name)
-        .then(response => res.status(200)
-            .json(response))
-        .catch(err => res.status(400).json({ err }))
-})
-
-router.patch('/ring/:id', (req, res) => {
-    let id = req.params.id
-    let { name } = req.body
-
-    categoriesService.updateRing(id, name)
-        .then(response => res.status(200)
-            .json(response))
-        .catch(err => res.status(400).json({ err }))
-})
-
-router.delete('/ring/:id', (req, res) => {
-    let id = req.params.id
-
-    categoriesService.deleteRingById(id)
-        .then(response => res.status(202)
-            .json(response))
-        .catch(err => res.status(400).json({ err }))
-})
-
-router.delete('/main/:id', (req, res) => {
-    let id = req.params.id
-    
-    categoriesService.deleteMainById(id)
-        .then(response => res.status(202)
-            .json(response))
-        .catch(err => res.status(400).json({ err }))
-})
-
-router.delete('/sub/:id', (req, res) => {
-    let id = req.params.id
-    
-    categoriesService.deleteSubById(id)
-        .then(response => res.status(202)
             .json(response))
         .catch(err => res.status(400).json({ err }))
 })

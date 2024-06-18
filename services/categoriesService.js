@@ -9,9 +9,13 @@ const mainAll = () => {
     })
 }
 
-const all = () => {
-    return Category.find()
+const all = (offset, limit) => {
+    return Category.find().sort({name : 'asc'}).skip(offset).limit(limit)
 }
+
+const count = async () => {
+    return await Category.countDocuments()
+ }
 
 const create = async (name, parentId, secondParentId) => {
     let category = new Category({ name, parentId, secondParentId })
@@ -65,5 +69,6 @@ export default {
     create, 
     update,
     getById,
-    deleteById
+    deleteById,
+    count
 }
