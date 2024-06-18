@@ -1,9 +1,7 @@
-import MainCategory from "../data/models/MainCategory.js"
-import SubCategory from "../data/models/SubCategory.js"
-import RingCategory from "../data/models/RingCategory.js"
+import Category from "../data/models/Category.js"
 
 const mainAll = () => {
-    return MainCategory.find().populate({
+    return Category.find({parentId: null}).populate({
         path: 'subCategories',
         populate: {
             path: 'subCategories'
@@ -11,116 +9,61 @@ const mainAll = () => {
     })
 }
 
-const mainAllWhichHaveSub = () => {
-    return MainCategory.find({ subCategories: { $ne: [] } })
+const all = () => {
+    return Category.find()
 }
 
-const getSubByParentId = (id) => {
-    return SubCategory.find({
-        $or: [
-            { parentId: id },
-            { secondParentId: id }
-        ]
-    })
-}
+const create = async (name, parentId, secondParentId) => {
+    let category = new Category({ name, parentId, secondParentId })
+    await category.save()
 
-const createMain = async (name) => {
-    let category = new MainCategory({ name })
+    if (parentId) {
+        let parent = Category.findById(parentId)
+        parent.subCategories.push(category)
+        await category.save()
 
-    return await category.save()
-}
-
-const createSub = async (categoryId, name) => {
-    let subCategory = new SubCategory({ parentId: categoryId, name })
-
-    await subCategory.save()
-
-    let mainCategory = await MainCategory.findById(categoryId)
-    mainCategory.subCategories.push(subCategory)
-    return await mainCategory.save()
-}
-
-const subAll = () => {
-    return SubCategory.find()
-}
-
-const ringAll = () => {
-    return RingCategory.find()
-}
-
-const getById = async (id) => {
-    let mainCategory = await MainCategory.findOne({ _id: id }).lean()
-
-    if (!mainCategory) {
-        let subCategory = await SubCategory.findOne({ _id: id }).lean()
-
-        if (!subCategory) {
-            return await RingCategory.findOne({ _id: id }).lean()
-        }
-        else {
-            return subCategory
+        if (secondParentId) {
+            let secondParent = Category.findById(secondParentId)
+            secondParent.subCategories.push(category)
+            await secondParent.save()
         }
     }
-    else {
-        return mainCategory
-    }
+
+    return category
 }
 
-const updateMain = async (_id, name) => {
-    return await MainCategory.findOneAndUpdate({ _id }, { name })
+
+const update = async (_id, name) => {
+    return await Category.findOneAndUpdate({ _id }, { name })
 }
 
-const updateSub = async (_id, name) => {
-    return await SubCategory.findOneAndUpdate({ _id }, { name })
+export const getById = async (_id) => {
+    return await Category.findById(_id)
 }
 
-const updateRing = async (_id, name) => {
-    return await RingCategory.findOneAndUpdate({ _id }, { name })
-}
+const deleteById = async (_id) => {
+    let category = await Category.findById(_id)
 
-const deleteRingById = async (_id) => {
-    return await RingCategory.deleteOne({ _id })
-}
+    if(category.parentId){
+        let parent = Category.findById(category.parentId)
+        parent.subCategories.remove(_id)
+        await parent.save()
 
-const deleteMainById = async (_id) => {
-    return await MainCategory.deleteOne({ _id })
-}
-
-const deleteSubById = async (_id) => {
-    let subCategory = await SubCategory.findById(_id)
-    let parentId = subCategory.parentId
-    let secondParentId = subCategory.secondParentId
-
-    let parent = await MainCategory.findById(parentId)
-    let secondParent = await MainCategory.findById(secondParentId)
-
-    if (parent) {
-        parent.subCategories.remove(subCategory._id)
+        if(category.secondParentId){
+            let secondParent = Category.findById(category.secondParentId)
+            secondParent.subCategories.remove(_id)
+            await secondParent.save()
+        }
     }
 
-    if (secondParent) {
-        secondParent.subCategories.remove(subCategory._id)
-    }
-
-    await parent.save()
-    await secondParent.save()
-
-    return await SubCategory.findByIdAndDelete(_id)
+    return await Category.findByIdAndDelete(_id)
 }
 
 export default {
     mainAll,
+    all,
+    create, 
+    update,
     getById,
-    subAll,
-    ringAll,
-    updateMain,
-    updateSub,
-    updateRing,
-    deleteRingById,
-    deleteMainById,
-    deleteSubById,
-    createMain,
-    createSub,
-    mainAllWhichHaveSub,
-    getSubByParentId
+    deleteById
 }

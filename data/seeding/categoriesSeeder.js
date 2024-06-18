@@ -1,6 +1,4 @@
-import MainCategory from "../models/MainCategory.js"
-import RingCategory from "../models/RingCategory.js"
-import SubCategory from "../models/SubCategory.js"
+import Category from "../models/Category.js"
 
 const mainCategories = [
 
@@ -33,25 +31,24 @@ const ringCategories = [
     { name: 'Детски' },
 ]
 
-let data = await MainCategory.find({})
+let data = await Category.find({})
 
 if (data.length === 0) {
     for (let index = 0; index < mainCategories.length; index++) {
         const element = mainCategories[index];
-        let mainCategory = new MainCategory(element)
+        let mainCategory = new Category(element)
 
         await mainCategory.save()
     }
 }
 
-let goldCategory = await MainCategory.findOne({ name: 'Злато' })
-let silverCategory = await MainCategory.findOne({ name: 'Сребро' })
-let subCategories = await SubCategory.find({})
+let goldCategory = await Category.findOne({ name: 'Злато' })
+let silverCategory = await Category.findOne({ name: 'Сребро' })
 
-if (subCategories.length === 0) {
+if (goldCategory.subCategories.length === 0 && silverCategory.subCategories.length === 0) {
     for (let index = 0; index < goldAndSilverCategories.length; index++) {
         let name = goldAndSilverCategories[index].name
-        let subCategory = new SubCategory({name: name, parentId: goldCategory._id, secondParentId: silverCategory._id})
+        let subCategory = new Category({name: name, parentId: goldCategory._id, secondParentId: silverCategory._id})
         await subCategory.save()
         goldCategory.subCategories.push(subCategory)
         silverCategory.subCategories.push(subCategory)
@@ -61,14 +58,14 @@ if (subCategories.length === 0) {
    await silverCategory.save()
 }
 
-let ringCategoriesData = await RingCategory.find({})
-let ringSubCategory = await SubCategory.findOne({ name: 'Пръстени' })
+let ringSubCategory = await Category.findOne({ name: 'Пръстени' })
+let subCategoriesLength = ringSubCategory.subCategories.length
 
-if (ringCategoriesData.length === 0){
+if (subCategoriesLength === 0){
     for (let index = 0; index < ringCategories.length; index++) {
         const data = ringCategories[index];
 
-        let ringCategory = new RingCategory({name: data.name, parentId: ringSubCategory._id })
+        let ringCategory = new Category({name: data.name, parentId: ringSubCategory._id })
 
         await ringCategory.save()
         ringSubCategory.subCategories.push(ringCategory)
