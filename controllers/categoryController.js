@@ -32,9 +32,9 @@ router.get('/all', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    let { name, parentId, secondParendId } = req.body
+    let { name, parentId, secondParentId } = req.body
 
-    categoriesService.create(name, parentId, secondParendId)
+    categoriesService.create(name, parentId, secondParentId)
         .then(category => {
             res.status(201).json({ _id: category._id })
         })
@@ -55,6 +55,16 @@ router.patch('/:id', (req, res) => {
 
     categoriesService.update(id, name)
         .then(response => res.status(200)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
+router.delete('/:id', (req, res) => {
+    let id = req.params.id
+
+    categoriesService.deleteById(id)
+        .then(response => res
+            .status(200)
             .json(response))
         .catch(err => res.status(400).json({ err }))
 })

@@ -48,12 +48,12 @@ const deleteById = async (_id) => {
     let category = await Category.findById(_id)
 
     if (category.parentId) {
-        let parent = Category.findById(category.parentId)
-        parent.subCategories.remove(_id)
+        let parent = await Category.findById(category.parentId)
+        parent.subCategories.remove(category)
         await parent.save()
 
         if (category.secondParentId) {
-            let secondParent = Category.findById(category.secondParentId)
+            let secondParent = await Category.findById(category.secondParentId)
             secondParent.subCategories.remove(_id)
             await secondParent.save()
         }
