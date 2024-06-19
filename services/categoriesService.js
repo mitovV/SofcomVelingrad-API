@@ -76,6 +76,14 @@ const deleteById = async (_id) => {
     }
   }
 
+  if(category.subCategories.length > 0){
+    for (let index = 0; index < category.subCategories.length; index++) {
+      const element = category.subCategories[index]
+      
+      await deleteById(element._id)
+    }
+  }
+
   return await Category.findByIdAndDelete(_id)
 }
 
