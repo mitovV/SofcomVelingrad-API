@@ -1,4 +1,4 @@
-import GoldCarat from "../models/GoldCarat.js"
+import GoldCarat from '../models/GoldCarat.js'
 
 const carats = [
     '(8K)-33.33% злато',

@@ -1,5 +1,5 @@
-import { Router } from "express"
-import errorsService from "../services/errorsService.js"
+import { Router } from 'express'
+import errorsService from '../services/errorsService.js'
 
 const router = Router()
 

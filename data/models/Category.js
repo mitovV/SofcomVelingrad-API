@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
-import category from "../validations/category.js"
+import mongoose from 'mongoose'
+import category from '../validations/category.js'
 
 const { Schema } = mongoose
 

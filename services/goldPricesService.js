@@ -1,4 +1,4 @@
-import GoldPrice from "../data/models/GoldPrice.js"
+import GoldPrice from '../data/models/GoldPrice.js'
 
 const all = () => {
     return GoldPrice.find()

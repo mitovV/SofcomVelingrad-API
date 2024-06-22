@@ -1,4 +1,4 @@
-import RingSize from "../data/models/RingSize.js"
+import RingSize from '../data/models/RingSize.js'
 
 const create = async (size) => {
     let ringSize = new RingSize({ size })

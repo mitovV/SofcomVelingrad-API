@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
-import config from "./config.js"
+import mongoose from 'mongoose'
+import config from './config.js'
 
 mongoose.connect(config.DB_URI)
 

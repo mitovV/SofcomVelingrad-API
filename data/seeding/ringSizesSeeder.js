@@ -1,4 +1,4 @@
-import RingSize from "../models/RingSize.js"
+import RingSize from '../models/RingSize.js'
 
 const sizes = ['41(р)-13.0(mm)', '42(р)-13.4(mm)',
     '43(р)-13.7(mm)', '44(р)-14.0(mm)', '45(р)-14.3(mm)',

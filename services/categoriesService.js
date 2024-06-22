@@ -1,4 +1,4 @@
-import Category from "../data/models/Category.js"
+import Category from '../data/models/Category.js'
 
 const mainAll = async () => {
   const populateSubCategories = async (category) => {

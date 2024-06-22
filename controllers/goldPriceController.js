@@ -1,5 +1,5 @@
-import { Router } from "express"
-import goldPricesService from "../services/goldPricesService.js"
+import { Router } from 'express'
+import goldPricesService from '../services/goldPricesService.js'
 
 const router = Router()
 
@@ -10,7 +10,6 @@ router.get('/all', (req, res) => {
             .json(response)
         )
         .catch(err => res.status(400).json({ err }))
-
 })
 
 router.post('/', (req, res) => {
