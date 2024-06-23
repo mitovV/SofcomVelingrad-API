@@ -3,7 +3,7 @@ import goldCaratsService from '../services/goldCaratsService.js'
 
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/all', (req, res) => {
     goldCaratsService.all()
         .then(response => res
             .status(200)

@@ -13,6 +13,6 @@ router.use('/ring-sizes', ringSizeController)
 router.use('/errors', errorController)
 router.use('/gold-prices', goldPriceController)
 router.use('/products', productController)
-router.use('gold-carats', goldCaratController)
+router.use('/gold-carats', goldCaratController)
 
 export default router
