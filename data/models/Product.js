@@ -18,7 +18,7 @@ const productSchema = new Schema({
     categoryId: {
         type: mongoose.Types.ObjectId,
         ref: 'Category',
-        require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
+        require: true
     },
     categoryName: {
         type: String,
