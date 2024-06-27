@@ -55,8 +55,8 @@ const productSchema = new Schema({
         require: function () { return this.material === SILVER_CATEGORY_NEM }
     },
     condition: {
-        type: String,
-        enum: ['Втора', 'Полирано'],
+        type: mongoose.Types.ObjectId,
+        ref: 'GoldCondition',
         require: function () { return this.categoryName === GOLD_CATEGORY_NAME }
     },
     length: {

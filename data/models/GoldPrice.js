@@ -4,7 +4,8 @@ const { Schema } = mongoose
 
 const goldPriceSchema = new Schema({
     condition: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: 'GoldCondition',
         require: true,
     },
     price: {
