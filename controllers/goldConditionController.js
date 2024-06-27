@@ -12,4 +12,14 @@ router.get('/all', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.post('/', (req, res) => {
+    let { name } = req.body
+
+    goldConditionsService.create(name)
+        .then(gC => {
+            res.status(201).json({ _id: gC._id })
+        })
+        .catch(err => res.status(400).json({ err }))
+})
+
 export default router

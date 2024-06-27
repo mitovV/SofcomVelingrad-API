@@ -7,10 +7,11 @@ const goldPriceSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'GoldCondition',
         require: true,
+        unique: true
     },
     price: {
         type: Number,
-        require: true
+        require: true,
     }
 })
 
