@@ -22,6 +22,25 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ err }))
 })
 
+router.get('/:id', (req, res) => {
+    let id = req.params.id
+
+    goldPricesService.getById(id)
+    .then(response => res.status(202)
+        .json(response))
+    .catch(err => res.status(400).json({ err }))
+})
+
+router.patch('/:id', (req, res) => {
+    let id = req.params.id
+    let { condition, price } = req.body
+
+    goldPricesService.update(id, condition, price)
+        .then(response => res.status(200)
+            .json(response))
+        .catch(err => res.status(400).json({ err }))
+})
+
 router.delete('/:id', (req, res) => {
     let id = req.params.id
 
