@@ -81,13 +81,21 @@ const productSchema = new Schema({
         type: String,
         minLength: [3, 'Brand must be at least 3 characters long'],
         maxLength: [10, 'Brand must not be more than 10 characters long'],
-        require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
+        require: function () { return [WATCHES_CATEGORY_NAME].includes(this.categoryName) }
     },
     model: {
         type: String,
         minLength: [3, 'Model must be at least 3 characters long'],
         maxLength: [10, 'Model must not be more than 10 characters long'],
         require: function () { return [WATCHES_CATEGORY_NAME, GSM_CATEGORY_NAME].includes(this.categoryName) }
+    },
+    ram: {
+        type: Number,
+        require: function () {return this.categoryName === GSM_CATEGORY_NAME}
+    },
+    rom: {
+        type: Number,
+        require: function () {return this.categoryName === GSM_CATEGORY_NAME}
     },
     imagePaths: [{
         type: [String],
