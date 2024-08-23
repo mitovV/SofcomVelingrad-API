@@ -12,6 +12,7 @@ configuration(app)
 import './data/seeding/categoriesSeeder.js'
 import './data/seeding/ringSizesSeeder.js'
 import './data/seeding/goldCaratsSeeder.js'
+import './data/seeding/silverCaratsSeeder.js'
 
 app.use('/api', router)
 
