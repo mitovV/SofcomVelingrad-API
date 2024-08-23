@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Mongoose } from 'mongoose'
 
 const { Schema } = mongoose
 
@@ -47,7 +47,8 @@ const productSchema = new Schema({
         }
     },
     silverCarat: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: 'SilverCarat',
         enum: {
             values: ['(900)-90% сребро', '(925)-92.5% сребро', '(999)-99.9% сребро'],
             message: 'Invalid carat for silver'
