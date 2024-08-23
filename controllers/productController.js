@@ -12,4 +12,26 @@ router.get('/', (req, res) => {
     .catch(err => res.status(400).json({ err }))
 })
 
+router.post('/', (req, res) => {
+    let { categoryId, 
+        categoryName, 
+        material,
+        weight,
+        size,
+        goldCarat,
+        silverCarat,
+        title,
+        model,
+        brand,
+        ram,
+        rom,
+        price,
+        description,
+    } = req.body
+
+    let files = req.files
+console.log(req.body);
+    
+})
+
 export default router

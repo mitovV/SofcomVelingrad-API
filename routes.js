@@ -6,6 +6,7 @@ import goldPriceController from './controllers/goldPriceController.js'
 import productController from './controllers/productController.js'
 import goldCaratController from './controllers/goldCaratController.js'
 import goldConditionController from './controllers/goldConditionController.js'
+import silverCaratController from './controllers/silverCaratController.js'
 
 const router = Router()
 
@@ -16,5 +17,6 @@ router.use('/gold-prices', goldPriceController)
 router.use('/products', productController)
 router.use('/gold-carats', goldCaratController)
 router.use('/gold-conditions', goldConditionController)
+router.use('/silver-carats', silverCaratController)
 
 export default router
