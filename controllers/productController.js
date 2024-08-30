@@ -111,7 +111,7 @@ router.post('/', (req, res) => {
             const oldPath = file[0].filepath
 
             const newPath = join(uploadPath, file[0].originalFilename)
-            let imgPath = join(`uploads\\${savedProduct._id.toString()}\\`, file[0].originalFilename)            
+            let imgPath = join(savedProduct._id.toString(), file[0].originalFilename)            
             savedProduct.images.push(imgPath)
             
             fs.renameSync(oldPath, newPath)
@@ -119,7 +119,7 @@ router.post('/', (req, res) => {
         savedProduct.save()
 
         // Връщане на отговор след успешна обработка
-        res.json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
+        res.status(200).json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
     })
 })
 
