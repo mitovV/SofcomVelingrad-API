@@ -91,7 +91,7 @@ const productSchema = new Schema({
         require: function () {return this.categoryName === GSM_CATEGORY_NAME}
     },
     images: [{
-        type: [String]
+        type: String
     }]
 })
 

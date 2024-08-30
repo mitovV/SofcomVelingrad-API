@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
             description = fields.description[0]
         }
         else if (mainCategory === 'Часовници') {
-            title = fields.title[0]
+            model = fields.model[0]
             price = fields.price[0]
             description = fields.description[0]
             brand = fields.brand[0]
@@ -111,8 +111,12 @@ router.post('/', (req, res) => {
             const oldPath = file[0].filepath
 
             const newPath = join(uploadPath, file[0].originalFilename)
+            let imgPath = join(`uploads\\${savedProduct._id.toString()}\\`, file[0].originalFilename)            
+            savedProduct.images.push(imgPath)
+            
             fs.renameSync(oldPath, newPath)
-        }) 
+        })        
+        savedProduct.save()
 
         // Връщане на отговор след успешна обработка
         res.json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
