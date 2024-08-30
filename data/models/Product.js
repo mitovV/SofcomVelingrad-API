@@ -90,15 +90,8 @@ const productSchema = new Schema({
         type: Number,
         require: function () {return this.categoryName === GSM_CATEGORY_NAME}
     },
-    imagePaths: [{
-        type: [String],
-        require: true,
-        validate: {
-            validator: function (arr) {
-                return arr.length === 3
-            },
-            message: 'The images must be exactly 3'
-        }
+    images: [{
+        type: [String]
     }]
 })
 

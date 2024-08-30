@@ -103,8 +103,8 @@ router.post('/', (req, res) => {
             goldCarat, silverCarat, title, model, brand, ram, rom, price, description)
 
         // Създаване на папка за качване на файловете според productId
-        const uploadPath = join(rootDir, 'uploads', savedProduct._id.toString()) 
-        createFolderIfNotExists(uploadPath) 
+        const uploadPath = join(rootDir, 'uploads', savedProduct._id.toString())
+        createFolderIfNotExists(uploadPath)
 
         // Преместване на качените файлове в новата директория
         Object.values(files).forEach((file) => {
