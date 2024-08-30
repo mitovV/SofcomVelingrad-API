@@ -119,7 +119,7 @@ router.post('/', (req, res) => {
         savedProduct.save()
 
         // Връщане на отговор след успешна обработка
-        res.status(200).json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
+        res.status(201).json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
     })
 })
 
