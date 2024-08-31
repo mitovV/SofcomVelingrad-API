@@ -84,15 +84,23 @@ const productSchema = new Schema({
     },
     ram: {
         type: Number,
-        require: function () {return this.categoryName === GSM_CATEGORY_NAME}
+        require: function () { return this.categoryName === GSM_CATEGORY_NAME }
     },
     rom: {
         type: Number,
-        require: function () {return this.categoryName === GSM_CATEGORY_NAME}
+        require: function () { return this.categoryName === GSM_CATEGORY_NAME }
+    },
+    createdOn: {
+        type: Date
     },
     images: [{
         type: String
     }]
+})
+
+productSchema.pre('save', function(next){
+    this.createdOn = Date.now()
+    next()
 })
 
 export default mongoose.model('Product', productSchema)
