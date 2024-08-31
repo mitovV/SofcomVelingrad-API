@@ -27,16 +27,25 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.get('/latest', (req, res) => {
+    productsService.latest()
+        .then(response => res
+            .status(200)
+            .json(response)
+        )
+        .catch(err => res.status(400).json({ err }))
+})
+
 router.post('/', (req, res) => {
     const form = formidable({
         multiples: true,
         uploadDir: join(rootDir, 'uploads/tmp'),
         keepExtensions: true,
-    }) 
+    })
 
     form.parse(req, async (err, fields, files) => {
         if (err) {
-            return res.status(400).json({ error: 'Error processing form data' }) 
+            return res.status(400).json({ error: 'Error processing form data' })
         }
 
         let categoryId = fields.categoryId[0]
@@ -111,11 +120,11 @@ router.post('/', (req, res) => {
             const oldPath = file[0].filepath
 
             const newPath = join(uploadPath, file[0].originalFilename)
-            let imgPath = join(savedProduct._id.toString(), file[0].originalFilename)            
+            let imgPath = join(savedProduct._id.toString(), file[0].originalFilename)
             savedProduct.images.push(imgPath)
-            
+
             fs.renameSync(oldPath, newPath)
-        })        
+        })
         savedProduct.save()
 
         // Връщане на отговор след успешна обработка
