@@ -120,7 +120,7 @@ router.post('/', (req, res) => {
             const oldPath = file[0].filepath
 
             const newPath = join(uploadPath, file[0].originalFilename)
-            let imgPath = join(savedProduct._id.toString(), file[0].originalFilename)
+            let imgPath = join('uploads/' + savedProduct._id.toString(), file[0].originalFilename)
             savedProduct.images.push(imgPath)
 
             fs.renameSync(oldPath, newPath)
