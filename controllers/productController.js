@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
         keepExtensions: true,
     })
 
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {       
         if (err) {
             return res.status(400).json({ error: 'Error processing form data' })
         }
@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
         let categoryName = fields.categoryName[0]
         let mainCategory = fields.mainCategory[0]
 
-        let material, weight, size, goldCarat, silverCarat, title, model, brand, ram, rom, price, description
+        let material, weight, size, goldCarat, condition,silverCarat, title, model, brand, ram, rom, price, description
 
         if (mainCategory === 'Злато') {
             if (categoryName === 'Детски' || categoryName === 'Мъжки' || categoryName === 'Дамски') {
@@ -62,6 +62,7 @@ router.post('/', (req, res) => {
             weight = fields.weight[0]
             material = fields.material[0]
             goldCarat = fields.goldCarat[0]
+            condition = fields.condition[0]
         }
         else if (mainCategory === 'Сребро') {
             if (categoryName === 'Детски' || categoryName === 'Мъжки' || categoryName === 'Дамски') {
@@ -109,7 +110,7 @@ router.post('/', (req, res) => {
         }
 
         const savedProduct = await productsService.create(categoryId, categoryName, material, weight, size,
-            goldCarat, silverCarat, title, model, brand, ram, rom, price, description)
+            goldCarat, condition, silverCarat, title, model, brand, ram, rom, price, description)
 
         const uploadPath = join(rootDir, 'uploads', savedProduct._id.toString())
         createFolderIfNotExists(uploadPath)

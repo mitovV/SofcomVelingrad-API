@@ -50,7 +50,7 @@ const productSchema = new Schema({
     condition: {
         type: mongoose.Types.ObjectId,
         ref: 'GoldCondition',
-        require: function () { return this.categoryName === GOLD_CATEGORY_NAME }
+        require: function () { return this.material === GOLD_CATEGORY_NAME }
     },
     length: {
         type: Number,

@@ -11,6 +11,7 @@ const create = (
     weight,
     size,
     goldCarat,
+    condition,
     silverCarat,
     title,
     model,
@@ -21,7 +22,7 @@ const create = (
     description
 ) => {
     let product = new Product({
-        categoryId, categoryName, material, weight, size, goldCarat, silverCarat, title,
+        categoryId, categoryName, material, weight, size, goldCarat, condition,silverCarat, title,
         model, brand, ram, rom, price, description
     })
 
