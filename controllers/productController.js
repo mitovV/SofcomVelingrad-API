@@ -111,11 +111,9 @@ router.post('/', (req, res) => {
         const savedProduct = await productsService.create(categoryId, categoryName, material, weight, size,
             goldCarat, silverCarat, title, model, brand, ram, rom, price, description)
 
-        // Създаване на папка за качване на файловете според productId
         const uploadPath = join(rootDir, 'uploads', savedProduct._id.toString())
         createFolderIfNotExists(uploadPath)
 
-        // Преместване на качените файлове в новата директория
         Object.values(files).forEach((file) => {
             const oldPath = file[0].filepath
 
@@ -127,7 +125,6 @@ router.post('/', (req, res) => {
         })
         savedProduct.save()
 
-        // Връщане на отговор след успешна обработка
         res.status(201).json({ message: 'Product created and files uploaded successfully', product: savedProduct._id })
     })
 })
