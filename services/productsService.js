@@ -35,8 +35,17 @@ const latest = () => {
         .limit(8)
 }
 
+const getByCategoryId = (id, material) => {
+    if (material) {
+        return Product.find({categoryId: id, material})
+    }
+
+    return Product.find({categoryId: id})
+}
+
 export default {
     all,
     create,
-    latest
+    latest,
+    getByCategoryId
 }

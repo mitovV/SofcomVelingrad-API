@@ -36,6 +36,28 @@ router.get('/latest', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+
+    productsService.getByCategoryId(id)
+    .then(response => res
+        .status(200)
+        .json(response)
+    )
+    .catch(err => res.status(400).json({ err }))
+})
+
+router.get('/:id/:material', (req, res) => {
+    const { id, material} = req.params
+    
+    productsService.getByCategoryId(id, material)
+        .then(response => res
+            .status(200)
+            .json(response)
+        )
+        .catch(err => res.status(400).json({ err }))
+})
+
 router.post('/', (req, res) => {
     const form = formidable({
         multiples: true,
