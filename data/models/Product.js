@@ -56,6 +56,11 @@ const productSchema = new Schema({
         type: Number,
         require: function () { return [BRACELETS_CATEGORY_NAME, CHAINS_CATEGORY_NAME].includes(this.categoryName) }
     },
+    goldPrice: {
+        type: mongoose.Types.ObjectId,
+        ref: 'GoldPrice',
+        require: function () { return this.material === GOLD_CATEGORY_NAME }
+    },
     price: {
         type: Number,
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
@@ -98,7 +103,7 @@ const productSchema = new Schema({
     }]
 })
 
-productSchema.pre('save', function(next){
+productSchema.pre('save', function (next) {
     this.createdOn = Date.now()
     next()
 })
