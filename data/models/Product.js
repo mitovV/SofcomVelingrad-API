@@ -1,4 +1,5 @@
-import mongoose, { Mongoose } from 'mongoose'
+import mongoose from 'mongoose'
+import GoldPrice from '../models/GoldPrice.js'
 
 const { Schema } = mongoose
 
@@ -56,11 +57,6 @@ const productSchema = new Schema({
         type: Number,
         require: function () { return [BRACELETS_CATEGORY_NAME, CHAINS_CATEGORY_NAME].includes(this.categoryName) }
     },
-    goldPrice: {
-        type: mongoose.Types.ObjectId,
-        ref: 'GoldPrice',
-        require: function () { return this.material === GOLD_CATEGORY_NAME }
-    },
     price: {
         type: Number,
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
@@ -107,5 +103,15 @@ productSchema.pre('save', function (next) {
     this.createdOn = Date.now()
     next()
 })
+
+productSchema.methods.calculateGoldPrice = async function() {
+    if (this.material === 'Злато') {
+      let goldPrice = await GoldPrice.findOne({ condition: this.condition }).lean()
+      
+      if (goldPrice) {
+        return Math.round(this.weight * goldPrice.price)
+      }
+    }
+  }
 
 export default mongoose.model('Product', productSchema)
