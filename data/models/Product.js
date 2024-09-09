@@ -106,12 +106,12 @@ productSchema.pre('save', function (next) {
 
 productSchema.methods.calculateGoldPrice = async function() {
     if (this.material === 'Злато') {
-      let goldPrice = await GoldPrice.findOne({ condition: this.condition }).lean()
+      let goldPrice = await GoldPrice.findOne({ condition: this.condition }).lean()      
       
       if (goldPrice) {
         return Math.round(this.weight * goldPrice.price)
       }
     }
-  }
+}
 
 export default mongoose.model('Product', productSchema)

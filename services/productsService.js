@@ -44,8 +44,7 @@ const getByCategoryId = (id, material) => {
 
                     return { ...product.toObject(), goldCalcPrice: goldPrice }
                 }))
-console.log(productsWithPrices);
-
+                
                return productsWithPrices
             })
     }
