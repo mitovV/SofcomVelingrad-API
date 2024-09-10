@@ -37,7 +37,7 @@ const latest = () => {
 
 const getByCategoryId = (id, material) => {
     if (material) {
-        return Product.find({ categoryId: id, material })
+        return Product.find({ categoryId: id, material }).populate('goldCarat').populate('size')
             .then(async (products) => {
                 const productsWithPrices = await Promise.all(products.map(async (product) => {
                     const goldPrice = await product.calculateGoldPrice()
