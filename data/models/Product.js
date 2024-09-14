@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import GoldPrice from '../models/GoldPrice.js'
+import GoldCarat from '../models/GoldCarat.js'
 
 const { Schema } = mongoose
 
@@ -104,13 +105,67 @@ productSchema.pre('save', function (next) {
     next()
 })
 
-productSchema.methods.calculateGoldPrice = async function() {
+productSchema.methods.calculateGoldPrice = async function () {
     if (this.material === 'Злато') {
-      let goldPrice = await GoldPrice.findOne({ condition: this.condition }).lean()      
-      
-      if (goldPrice) {
-        return Math.round(this.weight * goldPrice.price)
-      }
+        let goldPrice = await GoldPrice.findOne({ condition: this.condition }).lean()
+        let goldCarat = await GoldCarat.findOne({ _id: this.goldCarat }).lean()        
+        let calcWeight
+
+        if (goldCarat.carat.includes('(8K)')) {
+            calcWeight = this.weight * 8 / 14
+        }
+        else if (goldCarat.carat.includes('(9K)')) {
+            calcWeight = this.weight * 9 / 14
+        }
+        else if (goldCarat.carat.includes('(10K)')) {
+            calcWeight = this.weight * 10 / 14
+        }
+        else if (goldCarat.carat.includes('(11K)')) {
+            calcWeight = this.weight * 11 / 14
+        }
+        else if (goldCarat.carat.includes('(12K)')) {
+            calcWeight = this.weight * 12 / 14
+        }
+        else if (goldCarat.carat.includes('(13K)')) {
+            calcWeight = this.weight * 13 / 14
+        }
+        else if (goldCarat.carat.includes('(14K)')) {
+            calcWeight = this.weight
+        }
+        else if (goldCarat.carat.includes('(15K)')) {
+            calcWeight = this.weight * 15 / 14
+        }
+        else if (goldCarat.carat.includes('(16K)')) {
+            calcWeight = this.weight * 16 / 14
+        }
+        else if (goldCarat.carat.includes('(17K)')) {
+            calcWeight = this.weight * 17 / 14
+        }
+        else if (goldCarat.carat.includes('(18K)')) {
+            calcWeight = this.weight * 18 / 14
+        }
+        else if (goldCarat.carat.includes('(19K)')) {
+            calcWeight = this.weight * 19 / 14
+        }
+        else if (goldCarat.carat.includes('(20K)')) {
+            calcWeight = this.weight * 20 / 14
+        }
+        else if (goldCarat.carat.includes('(21K)')) {
+            calcWeight = this.weight * 21 / 14
+        }
+        else if (goldCarat.carat.includes('(22K)')) {
+            calcWeight = this.weight * 22 / 14
+        }
+        else if (goldCarat.carat.includes('(23K)')) {
+            calcWeight = this.weight * 23 / 14
+        }
+        else if (goldCarat.carat.includes('(24K)')) {
+            calcWeight = this.weight * 24 / 14
+        }
+
+        if (goldPrice) {            
+            return Math.round(calcWeight * goldPrice.price)
+        }
     }
 }
 
