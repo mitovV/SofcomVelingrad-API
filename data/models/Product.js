@@ -69,7 +69,7 @@ const productSchema = new Schema({
     },
     title: {
         type: String,
-        minLength: [5, 'Title must be at least 5 characters long'],
+        minLength: [4, 'Title must be at least 5 characters long'],
         require: function () { return OTHER_CATEGORIES.includes(this.categoryName) }
     },
     brand: {
