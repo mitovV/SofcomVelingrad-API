@@ -110,10 +110,10 @@ router.post('/', (req, res) => {
             description = fields.description[0]
             brand = fields.brand[0]
         }
-        else if (mainCategory === 'Аудио и видео') {
+        else if (mainCategory === 'Аудио') {
             title = fields.title[0]
             price = fields.price[0]
-            description = fields.description[0]
+            description = fields.description[0]           
         }
         else if (mainCategory === 'Компютри и периферия') {
             title = fields.title[0]
