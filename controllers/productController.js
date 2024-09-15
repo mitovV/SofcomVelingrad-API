@@ -115,12 +115,12 @@ router.post('/', (req, res) => {
             price = fields.price[0]
             description = fields.description[0]           
         }
-        else if (mainCategory === 'Компютри и периферия') {
+        else if (mainCategory === 'Компютри') {
             title = fields.title[0]
             price = fields.price[0]
             description = fields.description[0]
         }
-        else if (mainCategory === 'Автомобили и аксесоари') {
+        else if (mainCategory === 'Автомобили') {
             title = fields.title[0]
             price = fields.price[0]
             description = fields.description[0]
