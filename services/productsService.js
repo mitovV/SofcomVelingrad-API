@@ -52,9 +52,14 @@ const getByCategoryId = (id, material) => {
     return Product.find({ categoryId: id })
 }
 
+const getById = (id) => {
+    return Product.findById(id)
+}
+
 export default {
     all,
     create,
     latest,
-    getByCategoryId
+    getByCategoryId,
+    getById
 }

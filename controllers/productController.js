@@ -27,6 +27,17 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).json({ err }))
 })
 
+router.get('/details/:id', (req,res) => {
+    const id = req.params.id
+
+    productsService.getById(id)
+    .then(response => res
+        .status(200)
+        .json(response)
+    )
+    .catch(err => res.status(400).json({ err }))
+})
+
 router.get('/latest', (req, res) => {
     productsService.latest()
         .then(response => res
