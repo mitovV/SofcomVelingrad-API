@@ -52,8 +52,11 @@ const getByCategoryId = (id, material) => {
     return Product.find({ categoryId: id })
 }
 
-const getById = (id) => {
-    return Product.findById(id)
+const getById = async (id) => {
+    let product = await Product.findById(id).populate('size').populate('goldCarat')
+    const goldPrice = await product.calculateGoldPrice()
+
+    return { ...product.toObject(), goldCalcPrice: goldPrice }
 }
 
 export default {
